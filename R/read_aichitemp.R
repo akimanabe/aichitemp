@@ -25,7 +25,8 @@ extract_location <-
     dat %>%
       dplyr::select(1) %>%
       dplyr::slice(1) %>%
-      dplyr::pull()
+      dplyr::pull() %>%
+      stringi::stri_trans_nfkc()
   }
 
 extract_year <-
