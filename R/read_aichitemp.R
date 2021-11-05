@@ -1,6 +1,3 @@
-fname <-"./data-raw/aichi0-2002.csv"
-
-
 read_aichitemp <- function(fname) {
   readr::read_csv(fname, col_names = FALSE) %>%
     dplyr::slice(-c(1:4)) %>%
@@ -12,7 +9,9 @@ read_aichitemp <- function(fname) {
                   Location = extract_location(fname)) %>%
     dplyr::mutate_at(., .vars = c("Day", "Month", "Temp"),
                      .funs = function(x) as.numeric(x)) %>%
-    dplyr::mutate(Date = lubridate::as_date(paste(Year, Month, Day, sep = "/"))) %>%
+    dplyr::mutate(Date =
+                    lubridate::as_date(
+                      paste(Year, Month, Day, sep = "/"))) %>%
     dplyr::arrange(Date) %>%
     dplyr::select(Date, Year, Month, Day, Location, Temp)
 }
